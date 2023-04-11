@@ -1,0 +1,19 @@
+﻿@model Tuple<string, Dictionary<string,string?>>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">@Model.Item1</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    @foreach (KeyValuePair<string, string?> item in Model.Item2)
+                    {
+                        <li class="breadcrumb-item"><a href="@item.Value">@item.Key</a></li>
+                        <li class="breadcrumb-item right active">@Model.Item1</li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,20 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
+using PeyDej;
 using PeyDej.Data;
 using PeyDej.Models.Users;
 
+using System.Security.Policy;
+
 var builder = WebApplication.CreateBuilder(args);
 
+#if DEBUG
+builder.Services.AddHostedService(sp => new NpmWatchHostedService(
+    enabled: sp.GetRequiredService<IWebHostEnvironment>().IsDevelopment(),
+    logger: sp.GetRequiredService<ILogger<NpmWatchHostedService>>()));
+#endif
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession(option => { option.IOTimeout = TimeSpan.FromMinutes(5); }); //you've configured session
@@ -70,8 +79,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapDefaultControllerRoute();
+app.MapAreaControllerRoute("areas", "Admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.Run();

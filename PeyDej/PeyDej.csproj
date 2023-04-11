@@ -1,15 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+	<Target Name="Install NPM modules" BeforeTargets="Build" Inputs="package-lock.json" Outputs="node_modules/.install-stamp">
+		<Exec Command="npm ci" Condition="'$(OS)' != 'Windows_NT'" />
+		<Exec Command="npm install" Condition="'$(OS)' == 'Windows_NT'" />
+		<Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+	</Target>
 
+	<Target Name="Compile SCSS" BeforeTargets="CopyFilesToPublishDirectory">
+		<Exec Command="npm run css-compile" />
+		<Copy SourceFiles="$(ProjectDir)wwwroot/css/site.css" DestinationFolder="$(PublishDir)wwwroot/css" />
+	</Target>
     <ItemGroup>
+      <Folder Include="Areas\Admin\Data\" />
+      <Folder Include="Areas\Admin\Models\" />
       <Folder Include="Data\Tmp" />
       <Folder Include="Models\Bases\Views" />
       <Folder Include="Models\Inspection\DataType" />
+      <Folder Include="wwwroot\css\" />
+      <Folder Include="wwwroot\lib\" />
     </ItemGroup>
 
     <ItemGroup>

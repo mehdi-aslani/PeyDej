@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title | سامانه تعمیر و نگهداری</title>
+    <partial name="_Styles" />
+</head>
+<body class="hold-transition sidebar-minib">
+    <div class="wrapper">
+        <partial name="_Navbar" />
+        <partial name="_Sidebar" />
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <partial name="_Footer" />
+    </div>
+    <partial name="_Scripts" />
+</body>
+</html>

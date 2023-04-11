@@ -1,0 +1,32 @@
+{
+  "name": "peydej",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "scripts": {
+    "prebuild:css": "rm -rf wwwroot/css",
+    "build:css": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/AdminLTE.scss css/adminlte.css",
+    "css": "npm-run-all --sequential css-compile css-minify",
+    "css-compile": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 wwwroot/scss/AdminLTE.scss wwwroot/css/adminlte.css",
+    "css-minify": "cleancss --output wwwroot/css/adminlte.min.css wwwroot/css/adminlte.css",
+    "postbuild:css": "postcss wwwroot/css/site.css --replace",
+    "prewatch": "rm -rf wwwroot/css",
+    "watch": "sass --watch Styles:wwwroot/css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.4",
+    "autoprefixer": "^10.4.14",
+    "bootstrap": "^4.1.0",
+    "chart.js": "^2.7.2",
+    "clean-css-cli": "^5.6.2",
+    "cssnano": "^6.0.0",
+    "cssnano-preset-advanced": "^6.0.0",
+    "datatables.net": "^1.10.16",
+    "datatables.net-bs4": "^1.10.16",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^8.0.0",
+    "sass": "^1.61.0"
+  }
+}
